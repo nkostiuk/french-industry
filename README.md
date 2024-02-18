@@ -1,4 +1,4 @@
-# french-industry-project
+# French Industry Project
 
 ## Objectif 
 ## Source de données  
