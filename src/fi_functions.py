@@ -113,3 +113,22 @@ def convert_columns_to_lower(df):
     
     df.columns = [col.lower() for col in df.columns]
     return df
+    
+
+def add_leading_zeros(df, column_name, desired_length):
+    """
+    Convert the specified column to string type and add leading zeros to match the desired length.
+
+    Parameters:
+    df (DataFrame): The DataFrame containing the column.
+    column_name (str): The name of the column to be converted.
+    desired_length (int): The desired length of the values after adding leading zeros.
+
+    Returns:
+    None
+    """
+    # Convert the specified column to string type
+    df[column_name] = df[column_name].astype(str)
+    
+    # Add leading zeros to match the desired length
+    df[column_name] = df[column_name].str.zfill(desired_length)
