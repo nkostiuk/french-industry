@@ -98,7 +98,7 @@ def summary_short(df):
     
     return display(tab)
 
-
+# Convert column names in the DataFrame to lowercase
 def convert_columns_to_lower(df):
     
     """
@@ -114,28 +114,39 @@ def convert_columns_to_lower(df):
     df.columns = [col.lower() for col in df.columns]
     return df
 
-
-#################################################FONCTION CALCUL DISTANCE ENTRE 2 VILLES A PARTIR DES COORDONNEES GPS#########################################
-#variables = (latitude1, longitude1, latitude2, longitude2, unit = 'miles' ou 'km')
-from numpy import sin, cos, arccos, pi, round 
-def rad2deg(radians): 
-    degrees = radians * 180 / pi 
-    return degrees 
-
-def deg2rad(degrees): 
-    radians = degrees * pi / 180 
-    return radians 
-
-def getDistanceBetweenPointsNew(latitude1, longitude1, latitude2, longitude2, unit = 'km'): 
-    theta = longitude1 - longitude2 
-    distance = 60 * 1.1515 * rad2deg( 
-        arccos( 
-            (sin(deg2rad(latitude1)) * sin(deg2rad(latitude2))) + 
-            (cos(deg2rad(latitude1)) * cos(deg2rad(latitude2)) * cos(deg2rad(theta))) 
-        ) 
-    ) 
+# Get the unique lengths of strings in the specified column
+def get_unique_lengths(column):
+    """
+    Get the unique lengths of strings in the specified column.
     
-    if unit == 'miles': 
-        return round(distance, 2) 
-    if unit == 'km': 
-        return round(distance * 1.609344, 2)
+    Parameters:
+        column (pandas.Series): The column containing strings.
+        
+    Returns:
+        numpy.ndarray: An array containing the unique lengths of strings in the column.
+    """
+    # Calculate the length of each string in the column
+    lengths = column.astype(str).str.len()
+    
+    # Find unique lengths
+    unique_lengths = lengths.unique()
+    
+    return unique_lengths
+
+# Convert the specified column to string type and add leading zeros to match the desired length
+def add_leading_zeros(df, column_name, desired_length):
+    """
+    Convert the specified column to string type and add leading zeros to match the desired length.
+
+    Parameters:
+    df_column (pandas.Series): The column to be converted, specified as a pandas Series.
+    desired_length (int): The desired length of the values after adding leading zeros.
+
+    Returns:
+    None
+    """
+    # Convert the specified column to string type
+    df[column_name] = df[column_name].astype(str)
+    
+    # Add leading zeros to match the desired length
+    df[column_name] = df[column_name].str.zfill(desired_length)
