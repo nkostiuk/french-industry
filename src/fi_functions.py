@@ -98,7 +98,7 @@ def summary_short(df):
     
     return display(tab)
 
-
+# Convert column names in the DataFrame to lowercase
 def convert_columns_to_lower(df):
     
     """
@@ -113,15 +113,34 @@ def convert_columns_to_lower(df):
     
     df.columns = [col.lower() for col in df.columns]
     return df
+
+# Get the unique lengths of strings in the specified column
+def get_unique_lengths(column):
+    """
+    Get the unique lengths of strings in the specified column.
     
+    Parameters:
+        column (pandas.Series): The column containing strings.
+        
+    Returns:
+        numpy.ndarray: An array containing the unique lengths of strings in the column.
+    """
+    # Calculate the length of each string in the column
+    lengths = column.astype(str).str.len()
+    
+    # Find unique lengths
+    unique_lengths = lengths.unique()
+    
+    return unique_lengths
+
+# Convert the specified column to string type and add leading zeros to match the desired length
 
 def add_leading_zeros(df, column_name, desired_length):
     """
     Convert the specified column to string type and add leading zeros to match the desired length.
 
     Parameters:
-    df (DataFrame): The DataFrame containing the column.
-    column_name (str): The name of the column to be converted.
+    df_column (pandas.Series): The column to be converted, specified as a pandas Series.
     desired_length (int): The desired length of the values after adding leading zeros.
 
     Returns:
